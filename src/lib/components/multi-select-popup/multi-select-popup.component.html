@@ -1,0 +1,91 @@
+<div class="multi-select-popup" role="dialog" aria-label="Select values">
+
+    <div class="popup-header">
+
+        <input
+                type="text"
+                [(ngModel)]="search"
+                (ngModelChange)="filter()"
+                placeholder="Search..."
+                class="search-box"
+                autofocus>
+
+    </div>
+
+    <div class="popup-actions">
+
+        <label class="select-all">
+
+            <input
+                    type="checkbox"
+                    [checked]="isAllSelected()"
+                    (change)="selectAll()">
+
+            <span>Select All</span>
+
+        </label>
+
+        <button
+                type="button"
+                class="clear-btn"
+                (click)="clear()">
+
+            Clear
+
+        </button>
+
+        <span class="selected-count" *ngIf="selected.length">
+            {{ selected.length }} selected
+        </span>
+
+    </div>
+
+    <div class="popup-options">
+
+        <label
+                class="option"
+                *ngFor="let option of filteredOptions">
+
+            <input
+                    type="checkbox"
+                    [checked]="isSelected(option.value)"
+                    (change)="toggle(option.value)">
+
+            <span>
+                {{ option.label }}
+            </span>
+
+        </label>
+
+        <div
+                class="empty"
+                *ngIf="filteredOptions.length === 0">
+
+            No records found
+
+        </div>
+
+    </div>
+
+    <div class="popup-footer">
+
+        <button
+                type="button"
+                (click)="cancel()">
+
+            Cancel
+
+        </button>
+
+        <button
+                type="button"
+                class="primary"
+                (click)="apply()">
+
+            Apply
+
+        </button>
+
+    </div>
+
+</div>

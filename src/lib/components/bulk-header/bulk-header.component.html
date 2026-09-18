@@ -1,0 +1,22 @@
+<div class="bulk-header">
+
+    <div class="bulk-header-content">
+
+        <h2>{{ title }}</h2>
+
+        <p *ngIf="description">
+            {{ description }}
+        </p>
+
+    </div>
+
+    <button
+            type="button"
+            class="back-btn"
+            (click)="goBack()">
+
+        ← {{ backLabel }}
+
+    </button>
+
+</div>

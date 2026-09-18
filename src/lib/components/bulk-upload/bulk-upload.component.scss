@@ -1,0 +1,154 @@
+.bulk-table-container {
+
+  width: 100%;
+  overflow: visible;
+  margin-top: 20px;
+  position: relative;
+
+}
+
+.import-errors {
+
+  margin-bottom: 16px;
+  padding: 12px 16px;
+
+  border: 1px solid #fca5a5;
+  background: #fef2f2;
+  border-radius: 8px;
+
+  p {
+    margin: 4px 0;
+    color: #991b1b;
+    font-size: 13px;
+  }
+
+}
+
+.upload-error {
+
+  margin-bottom: 16px;
+  padding: 12px 16px;
+
+  border: 1px solid #fca5a5;
+  background: #fef2f2;
+  border-radius: 8px;
+
+  color: #991b1b;
+  font-size: 13px;
+
+}
+
+::ng-deep .bulk-error-cell {
+
+  background: #fef2f2 !important;
+  color: #991b1b;
+  border: 1px solid #f87171 !important;
+
+}
+
+/* Initial load — shown in place of the grid while lookups are fetching. */
+.bulk-loading {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 64px 0;
+
+  p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+}
+
+.spinner {
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  border: 3px solid #e5e7eb;
+  border-top-color: #0058a3;
+
+  animation: bulk-spin 0.8s linear infinite;
+
+}
+
+@keyframes bulk-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Upload — a dedicated overlay over the grid itself, separate from the
+   toolbar's generic disabled-button busy state, since a bulk upload
+   submitting thousands of rows deserves more visible feedback than a
+   button just being greyed out. */
+.upload-progress-overlay {
+
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1px);
+
+}
+
+.upload-progress-box {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  padding: 24px 32px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+
+  p {
+    margin: 0;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+}
+
+.progress-track {
+
+  width: 220px;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #e5e7eb;
+
+}
+
+.progress-fill {
+
+  height: 100%;
+  width: 40%;
+  border-radius: 3px;
+  background: #0058a3;
+
+  // Indeterminate — this is a single POST, not a chunked upload, so
+  // there's no real byte-level progress to report. An animated sweep is
+  // honest about that; a fake percentage tied to nothing would be worse
+  // than no progress bar at all.
+  animation: bulk-progress-sweep 1.2s ease-in-out infinite;
+
+}
+
+@keyframes bulk-progress-sweep {
+  0%   { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}
+

@@ -1,0 +1,66 @@
+<bulk-uploader-header
+        [title]="activeSchema.moduleName + ' Bulk Upload'"
+        [description]="activeSchema.description || ''"
+        [backLabel]="'Back to ' + activeSchema.moduleName"
+        [backUrl]="activeSchema.backUrl">
+</bulk-uploader-header>
+
+<bulk-uploader-toolbar
+
+        [moduleName]="activeSchema.moduleName"
+        [loading]="isBusy"
+        [validRows]="validRowsCount"
+        [errorRows]="errorRowsCount"
+        [allowedExtensions]="activeSchema.allowedExtensions || ['xlsx', 'xls']"
+
+        (downloadSample)="downloadSample()"
+        (importExcel)="importExcel($event)"
+        (addRows)="addRows()"
+        (validate)="validateGrid()"
+        (clear)="clear()"
+        (upload)="upload()"
+        [hasData]="hasData()"
+        [validated]="validated"
+
+>
+</bulk-uploader-toolbar>
+
+<div class="import-errors" *ngIf="importErrors.length">
+    <p *ngFor="let error of importErrors">{{ error }}</p>
+</div>
+
+<div class="upload-error" *ngIf="uploadError">
+    {{ uploadError }}
+</div>
+
+<bulk-uploader-validation-summary
+        [errors]="validationErrors"
+        (errorClick)="jumpToError($event)">
+</bulk-uploader-validation-summary>
+
+<div class="bulk-loading" *ngIf="!isReady">
+    <div class="spinner"></div>
+    <p>Loading {{ activeSchema.moduleName }}…</p>
+</div>
+
+<div class="bulk-table-container" *ngIf="isReady">
+
+    <div class="upload-progress-overlay" *ngIf="isUploading">
+        <div class="upload-progress-box">
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+            <p>Uploading {{ activeSchema.moduleName }}…</p>
+        </div>
+    </div>
+
+    <hot-table
+
+            [data]="hotData"
+            [columns]="hotColumns"
+            [settings]="hotSettings"
+            [afterChange]="afterChange">
+
+    </hot-table>
+
+</div>

@@ -1,0 +1,25 @@
+<div
+        class="validation-box"
+        *ngIf="errors.length">
+
+    <h4>
+        Validation errors ({{ errors.length }})
+    </h4>
+
+    <ul>
+
+        <li
+                *ngFor="let error of visibleErrors"
+                (click)="errorClick.emit(error)">
+
+            <span class="row-tag">Row {{ error.row }}</span>
+            {{ error.message }}
+
+        </li>
+
+    </ul>
+    <div class="more-hint" *ngIf="hiddenCount">
+        + {{ hiddenCount }} more error(s) not shown
+    </div>
+
+</div>

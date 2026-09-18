@@ -1,0 +1,54 @@
+<div class="bulk-toolbar">
+
+    <button type="button" [disabled]="loading" (click)="downloadSample.emit()">
+        <span class="icon">⬇</span> Download sample
+    </button>
+
+    <button type="button" [disabled]="loading" (click)="triggerImport()">
+        <span class="icon">⬆</span> Import Excel
+    </button>
+
+    <input
+            #fileInput
+            type="file"
+            class="hidden-file-input"
+            [attr.accept]="acceptAttr"
+            (change)="onFileSelected($event)">
+
+    <button type="button" [disabled]="loading" (click)="addRows.emit()">
+        <span class="icon">+</span> Add rows
+    </button>
+
+    <button type="button" [disabled]="loading" (click)="onValidate()">
+        <span class="icon">✓</span> Validate
+    </button>
+
+    <div class="toolbar-summary" *ngIf="validRows || errorRows">
+
+        <span class="badge badge-valid" *ngIf="validRows">{{ validRows }} valid</span>
+        <span class="badge badge-error" *ngIf="errorRows">{{ errorRows }} with errors</span>
+
+    </div>
+
+    <button
+            style="margin-left:auto"
+            type="button"
+            [disabled]="loading"
+            (click)="clear.emit()">
+
+        <span class="icon">🗑</span> Clear
+
+    </button>
+
+    <button
+            class="primary"
+            type="button"
+            [disabled]="!canUpload"
+            (click)="upload.emit()">
+
+        <span *ngIf="!loading">Upload</span>
+        <span *ngIf="loading">Working…</span>
+
+    </button>
+
+</div>
